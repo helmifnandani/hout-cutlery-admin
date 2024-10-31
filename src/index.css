@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .list-navlink a {
+        @apply text-primary-600 flex items-center gap-4 px-8 py-3 text-xl font-semibold transition-all duration-300;
+    }
+
+    .list-navlink a:is(:hover, :active, .active) {
+        @apply text-primary-200 bg-primary-600 rounded-md;
+    }
+
+    .list-navlink a:is(:hover, :active, .active) svg {
+        @apply text-primary-200;
+    }
+
+    .ProseMirror {
+        @apply outline-none focus:outline-none;
+    }
+
+    /* Optional: Add more styles */
+    .ProseMirror p.is-editor-empty:first-child::before {
+        @apply pointer-events-none float-left h-0 text-gray-400;
+    }
+}
+
+body {
+    font-family: Outfit, sans-serif;
+}
