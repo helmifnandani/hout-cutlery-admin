@@ -4,7 +4,6 @@ import ProtectedRoute from './ui/ProtectedRoute'
 import AppLayout from './ui/AppLayout'
 import Products from './pages/Products'
 import Login from './pages/Login'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import '@fontsource/outfit'
 import '@fontsource/outfit/400.css'
 import '@fontsource/outfit/600.css'
@@ -29,7 +28,6 @@ function App() {
         <QueryClientProvider client={queryClient}>
             <FileProvider>
                 <SearchProvider>
-                    <ReactQueryDevtools initialIsOpen={false} />
                     <BrowserRouter>
                         <Routes>
                             <Route
