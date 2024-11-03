@@ -61,6 +61,20 @@ const getCatalog = async (catalogId) => {
     }
 }
 
+const getCatalogByName = async ({ searchName }) => {
+    const { data, error } = await supabase
+        .from('catalogs')
+        .select(`*`)
+        .ilike('name', `%${searchName}%`)
+
+    if (error) {
+        console.error(error)
+        throw new Error('Catalog not found')
+    }
+
+    return data
+}
+
 // Alternative approach using simplified query
 const fetchCatalogProductsSimple = async (catalogId) => {
     try {
@@ -129,11 +143,10 @@ const isProductInCatalog = async (productId, catalogId) => {
 
 const createEditCatalog = async (newCatalog, id, productData, imgFile) => {
     const hasImagePath = newCatalog.image?.startsWith?.(supabaseUrl)
-
-    const imageName = `${Math.random()}-${imgFile.name}`.replaceAll('/', '')
     let imagePath = hasImagePath ? newCatalog.image : ''
 
-    if (!newCatalog.image?.startsWith?.(supabaseUrl)) {
+    if (!hasImagePath) {
+        const imageName = `${Math.random()}-${imgFile.name}`.replaceAll('/', '')
         // Upload the file to the 'images' bucket
         const { data: imgData, error: errorImg } = await supabase.storage
             .from('products')
@@ -230,4 +243,5 @@ export {
     isProductInCatalog,
     createEditCatalog,
     updateCatalogProducts,
+    getCatalogByName,
 }

@@ -1,27 +1,28 @@
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { supabaseUrl } from '../../services/supabase'
+
+import { useMoveBack } from '../../hooks/useMoveBack'
+import { useEditProduct } from './useEditProduct'
+import { useCreateProduct } from './useCreateProduct'
+import { useImages } from '../../hooks/useImages'
+import { useUploadImage } from '../../hooks/useUploadImage'
+import { useUpdateProductImages } from '../../hooks/useUpdateProductImages'
+import { useFile } from '../../context/FileContext'
 
 import Form from '../../ui/Form'
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
 import FileInput from '../../ui/FileInput'
 import FormGroup from '../../ui/FormGroup'
-import ProductStatus from './ProductStatus'
 import RichTextEditor from '../../ui/RichTextEditor'
 import Table from '../../ui/Table'
-import ProductImageRow from './ProductImageRow'
-import { useMoveBack } from '../../hooks/useMoveBack'
 import Heading from '../../ui/Heading'
-import { useEditProduct } from './useEditProduct'
-import { useCreateProduct } from './useCreateProduct'
-import { useEffect, useState } from 'react'
 import Modal from '../../ui/Modal'
 import SelectFile from '../../ui/SelectFile'
-import { useImages } from '../../hooks/useImages'
-import { CATALOG_FOLDER_URL } from '../../utils/constants'
-import { useUploadImage } from '../../hooks/useUploadImage'
-import { useUpdateProductImages } from '../../hooks/useUpdateProductImages'
-import { useFile } from '../../context/FileContext'
-import { supabaseUrl } from '../../services/supabase'
+
+import ProductStatus from './ProductStatus'
+import ProductImageRow from './ProductImageRow'
 
 function ProductForm({
     onCloseModal,
@@ -41,13 +42,7 @@ function ProductForm({
     const { confirmedFile, setConfirmedFile } = useFile()
     const [previewUrl, setPreviewUrl] = useState(null)
     const [files, setFiles] = useState([])
-
     const moveBack = useMoveBack()
-
-    const onBack = (e) => {
-        e.preventDefault()
-        moveBack()
-    }
 
     const {
         id: editId,
@@ -89,6 +84,7 @@ function ProductForm({
     ])
 
     const onSubmit = (data) => {
+        debugger
         const productData = {
             name: data.name,
             price: Number(data.price),
@@ -164,6 +160,11 @@ function ProductForm({
         setProductImages((prevImages) => {
             return prevImages.filter((image, index) => index !== id)
         })
+    }
+
+    const onBack = (e) => {
+        e.preventDefault()
+        moveBack()
     }
 
     return (

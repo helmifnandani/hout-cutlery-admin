@@ -1,4 +1,13 @@
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { TrashIcon } from '@heroicons/react/24/outline'
+
+import { useFile } from '../../context/FileContext'
+import { useCatalogProduct } from '../../context/CatalogProductContext'
+import { useCreateCatalog } from './useCreateCatalog'
+import { useEditCatalog } from './useEditCatalog'
+import { useUpdateCatalogProduct } from './useUpdateCatalogProduct'
+
 import Form from '../../ui/Form'
 import Input from '../../ui/Input'
 import Heading from '../../ui/Heading'
@@ -7,16 +16,7 @@ import FileInput from '../../ui/FileInput'
 import FormGroup from '../../ui/FormGroup'
 import SelectFile from '../../ui/SelectFile'
 import Modal from '../../ui/Modal'
-import { useFile } from '../../context/FileContext'
-import { useEffect, useState } from 'react'
-import { TrashIcon } from '@heroicons/react/24/outline'
-import { useUploadImage } from '../../hooks/useUploadImage'
-import { CATALOG_FOLDER_URL } from '../../utils/constants'
 import SearchDropdown from '../../ui/SearchDropdown'
-import { useCreateCatalog } from './useCreateCatalog'
-import { useEditCatalog } from './useEditCatalog'
-import { useUpdateCatalogProduct } from './useUpdateCatalogProduct'
-import { useCatalogProduct } from '../../context/CatalogProductContext'
 
 const CatalogForm = ({ catalog = {}, onCloseModal, moveBack, images }) => {
     const { isCreating, createCatalog } = useCreateCatalog()
@@ -25,7 +25,6 @@ const CatalogForm = ({ catalog = {}, onCloseModal, moveBack, images }) => {
     const { catalogProducts, setCatalogProducts } = useCatalogProduct()
     const [catalogImage, setCatalogImage] = useState()
     const [catalogImageFile, setCatalogImageFile] = useState()
-    const { uploadImage, isUploading } = useUploadImage()
     const { confirmedFile, setConfirmedFile } = useFile()
 
     const {
@@ -195,8 +194,7 @@ const CatalogForm = ({ catalog = {}, onCloseModal, moveBack, images }) => {
                             src={catalogImage.url}
                             className="absolute left-0 top-0 aspect-4x1 h-96 object-cover"
                         />
-                        <div className="absolute left-0 top-0 aspect-4x1 h-full w-full bg-black opacity-40"></div>
-                        <div className="absolute left-0 top-0 flex aspect-4x1 h-full w-full items-center justify-center gap-6 text-center">
+                        <div className="absolute left-0 top-0 flex aspect-4x1 h-full w-full items-center justify-center gap-6 bg-black bg-opacity-40 text-center opacity-0 transition-all duration-300 hover:opacity-100">
                             <Button onClick={handleDeleteImage}>
                                 <TrashIcon className="size-8" />
                             </Button>

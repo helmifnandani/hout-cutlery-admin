@@ -1,6 +1,15 @@
 import { Link } from 'react-router-dom'
 
-const Button = ({ onClick, size, type, children, variant, width, to }) => {
+const Button = ({
+    onClick,
+    size,
+    type,
+    children,
+    variant,
+    width,
+    to,
+    isIcon = false,
+}) => {
     let buttonClass = 'rounded-md shadow-sm transition-all duration-300'
     let sizeClass = 'text-sm py-3 px-4'
     switch (size) {
@@ -20,8 +29,7 @@ const Button = ({ onClick, size, type, children, variant, width, to }) => {
     let variantClass = 'bg-primary-600 hover:bg-primary-700 text-white'
     switch (variant) {
         case 'secondary':
-            variantClass =
-                ' text-primary-600 border-primary-600 border-2 hover:bg-primary-300'
+            variantClass = `text-primary-600 ${isIcon ? '' : 'border-primary-600 border-2'} hover:bg-primary-300`
             break
         default:
             break

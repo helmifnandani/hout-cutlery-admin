@@ -55,9 +55,6 @@ const Pagination = ({ count }) => {
                     <span>Next</span>
                     <ChevronRightIcon className="size-5" />
                 </button>
-                {/* <PaginationButton
-                >
-                </PaginationButton> */}
             </div>
         </div>
     )

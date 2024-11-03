@@ -1,24 +1,39 @@
-import React, { useState, createContext, useContext } from 'react'
+import React, { useState, createContext, useContext, useCallback } from 'react'
 
 const SearchContext = createContext()
 
 export function SearchProvider({ children }) {
-    const [searchName, setSearchName] = useState('')
-    const [searchProduct, setSearchProduct] = useState()
-    const [isOpen, setIsOpen] = useState(false)
-    const [isSelectProduct, setIsSelectProduct] = useState(false)
+    const [searchStates, setSearchStates] = useState({})
+
+    const createSearchInstance = (instanceId) => {
+        if (!searchStates[instanceId]) {
+            setSearchStates((prev) => ({
+                ...prev,
+                [instanceId]: {
+                    searchName: '',
+                    searchItem: null,
+                    isOpen: false,
+                    isSelectItem: false,
+                },
+            }))
+        }
+    }
+    const updateSearchState = useCallback((instanceId, updates) => {
+        setSearchStates((prev) => ({
+            ...prev,
+            [instanceId]: {
+                ...prev[instanceId],
+                ...updates,
+            },
+        }))
+    }, [])
 
     return (
         <SearchContext.Provider
             value={{
-                searchProduct,
-                setSearchProduct,
-                isOpen,
-                setIsOpen,
-                searchName,
-                setSearchName,
-                isSelectProduct,
-                setIsSelectProduct,
+                searchStates,
+                createSearchInstance,
+                updateSearchState,
             }}
         >
             {children}

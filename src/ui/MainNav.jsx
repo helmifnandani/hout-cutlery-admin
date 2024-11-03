@@ -9,6 +9,9 @@ const MainNav = () => {
                 <li>
                     <NavLink to="/catalogs">Catalogs</NavLink>
                 </li>
+                <li>
+                    <NavLink to="/widgets">Widgets</NavLink>
+                </li>
             </ul>
         </nav>
     )

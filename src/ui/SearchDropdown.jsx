@@ -10,14 +10,14 @@ import { useCatalogProduct } from '../context/CatalogProductContext'
 
 const SearchDropdown = () => {
     const {
-        searchProduct,
-        setSearchProduct,
+        searchItem,
+        setSearchItem,
         isOpen,
         setIsOpen,
         searchName,
         setSearchName,
-        isSelectProduct,
-        setIsSelectProduct,
+        isSelectItem,
+        setIsSelectItem,
     } = useSearch()
     const { setCatalogProducts } = useCatalogProduct()
     const debouncedSearch = useDebounce(searchName, 300) // 300ms delay
@@ -44,22 +44,22 @@ const SearchDropdown = () => {
 
     // Open dropdown when typing
     useEffect(() => {
-        if (!isSelectProduct && searchName) {
+        if (!isSelectItem && searchName) {
             setIsOpen(true)
         } else {
             setIsOpen(false)
         }
-    }, [searchName, setIsOpen, isSelectProduct])
+    }, [searchName, setIsOpen, isSelectItem])
 
     const handleInputChange = (e) => {
         setSearchName(e.target.value)
-        setIsSelectProduct(false)
+        setIsSelectItem(false)
         setIsOpen(true)
     }
 
     const handleSelectProduct = (product) => {
-        setSearchProduct(product)
-        setIsSelectProduct(true)
+        setSearchItem(product)
+        setIsSelectItem(true)
         setSearchName(product.name)
         setIsOpen(false)
     }
@@ -67,9 +67,9 @@ const SearchDropdown = () => {
     const handleAddProduct = (e, product) => {
         e.preventDefault()
         const newProduct = {
-            id: searchProduct.id,
-            name: searchProduct.name,
-            images: searchProduct.product_images,
+            id: searchItem.id,
+            name: searchItem.name,
+            images: searchItem.product_images,
         }
         setCatalogProducts((prevCatalog) => {
             if (
@@ -101,7 +101,7 @@ const SearchDropdown = () => {
 
             {/* Dropdown Results */}
             {isOpen && (searchName || isLoading) && (
-                <div className="absolute z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg">
+                <div className="absolute z-50 mt-1 max-h-60 w-full translate-y-4 overflow-y-auto rounded-md border bg-white shadow-lg">
                     {isLoading && (
                         <div className="p-4 text-center text-gray-500">
                             Searching...

@@ -1,5 +1,6 @@
 import { UserCircleIcon } from '@heroicons/react/24/outline'
 import { useUser } from '../features/authentication/useUser'
+import Logout from '../features/authentication/Logout'
 
 const Header = () => {
     const { user } = useUser()
@@ -10,7 +11,7 @@ const Header = () => {
                 <p>{user.email}</p>
             </div>
             <div>
-                <UserCircleIcon />
+                <Logout />
             </div>
         </header>
     )

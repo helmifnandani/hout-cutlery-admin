@@ -20,9 +20,10 @@ const Input = forwardRef(
                 disabled={disabled}
                 id={id}
                 className={`rounded-md border border-primary-700 px-3 py-2 shadow-sm ${className}`}
-                {...register(`${id}`, {
-                    required: isRequired ? 'This field is required' : false,
-                })}
+                {...(register &&
+                    register(`${id}`, {
+                        required: isRequired ? 'This field is required' : false,
+                    }))}
                 {...props}
             />
         )

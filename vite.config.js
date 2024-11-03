@@ -8,4 +8,7 @@ export default defineConfig({
     build: {
         outDir: 'dist', // Make sure this matches your Vercel output directory
     },
+    server: {
+        hmr: true, // Ensure HMR is enabled
+    },
 })
